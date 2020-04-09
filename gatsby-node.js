@@ -12,10 +12,10 @@ exports.createResolvers = (args) => {
         agilityPost: {
             //get the sitemap node that represents this item - useful for retrieving the URL for the item
             sitemapNode: agility.getDynamicPageItemSitemapNode(),
-            
+
             //[Not Implemented]
             //if we had a linked content field for 'author', this is how we'd get the author for this post in a single GraphQl query
-            //linkedContent_agilityAuthor: agility.getLinkedContentItem({ type: 'agilityAuthor', linkedContentFieldName: 'author' })
+            linkedContent_agilityAuthor: agility.getLinkedContentItem({ type: 'agilityAuthor', linkedContentFieldName: 'author' })
         },
 
         //[Not Implemented]
@@ -41,7 +41,7 @@ exports.onCreateNode = async ({
     ) {
         const customFields = Object.keys(node.customFields);
         await asyncForEach(customFields, async (field) => {
-        
+
             const fieldKeys = Object.keys(node.customFields[field]);
             if(
                 fieldKeys.includes(`url`) &&

@@ -34,7 +34,12 @@ export default (props) => (
                     }
                     properties {
                         referenceName
-                    }
+					}
+					linkedContent_agilityAuthor {
+						customFields {
+						  name
+						}
+					}
                 }
             }
           }
@@ -67,13 +72,14 @@ const Posts = ({ posts }) => {
 }
 
 const Post = ({ post }) => {
-    
+
     if(!post.sitemapNode) return;
     return(
         <div className="post" key={post.contentID}>
             <Link to={post.sitemapNode.pagePath}>
                 <PostImage image={post.customFields.imageLocalImg} label={post.customFields.image ? post.customFields.image.label : `Post Image`} />
                 <h2>{post.customFields.title}</h2>
+				<div>{post.linkedContent_agilityAuthor.customFields.name}</div>
                 <PostExceprt htmlContent={post.customFields.details} />
             </Link>
         </div>
@@ -82,10 +88,10 @@ const Post = ({ post }) => {
 
 const PostImage = ({ image, label }) => {
     let imageToRender = null;
-    
+
     if(image && image.childImageSharp) {
 
-        imageToRender = <Img fluid={image.childImageSharp.fluid} alt={label} /> 
+        imageToRender = <Img fluid={image.childImageSharp.fluid} alt={label} />
     }
     return imageToRender;
 }
